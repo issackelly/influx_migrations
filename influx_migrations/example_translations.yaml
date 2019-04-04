@@ -1,0 +1,16 @@
+translation:
+  key_changes:
+    - source_regex: 'Pres'
+      # This is evaluated as an F-String
+      destination_eval: "{key.replace('Pres', 'pressure')}"
+    - source_regex: "temp"
+      destination_eval: "{key.lower().replace(' ', '_')}"
+  value_evals:
+    - key: cpu.temperature.c
+      destination_key: cpu.temperature.f
+      # Dunno why you would do this, but it should be this way.
+      # This is evaluated as an F string, and then evaluated again as the result of that f string
+      eval_value: "{result[key]} * 1.8  + 32"
+  drop_keys:
+    - 'TempKey'
+    - 'ANOTHER BAD Key'
